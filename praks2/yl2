@@ -1,0 +1,21 @@
+#!/bin/bash
+# Skript, mis väljastab kasutajale kuupäeva ja ajaga seotud info
+
+# Väljasta praegune kuupäev ja kellaaeg
+echo "Praegune kuupäev ja kellaaeg: $(date)"
+
+# Väljasta ainult kuupäev formaadis YYYY-MM-DD
+echo "Tänane kuupäev: $(date +%Y-%m-%d)"
+
+# Väljasta ainult kellaaeg formaadis HH:MM:SS
+echo "Praegune kellaaeg: $(date +%H:%M:%S)"
+
+# Väljasta nädalapäeva nimi
+echo "Tänane nädalapäev: $(date +%A)"
+
+# Väljasta kuu nimi
+echo "Praegune kuu: $(date +%B)"
+
+# Väljasta kalendrivaade käesoleva kuu jaoks
+echo "Kalender:"
+cal
