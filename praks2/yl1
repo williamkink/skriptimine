@@ -1,0 +1,6 @@
+#!/bin/bash
+# Skript, mis väljastab kasutajanime
+
+# Väljasta kasutajanimi
+echo "Tere, $USER"
+echo "!"
