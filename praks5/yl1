@@ -1,0 +1,17 @@
+#!/bin/bash
+# Skript küsib vanust ja kirjeldab vanust
+
+echo -n "Sisesta (oma) vanus: "
+read vanus
+
+if [ "$vanus" -gt 0 ] && [ "$vanus" -lt 11 ]; then
+    echo "Oled laps"
+elif [ "$vanus" -ge 11 ] && [ "$vanus" -lt 18 ]; then
+    echo "Oled nooruk"
+elif [ "$vanus" -ge 18 ] && [ "$vanus" -lt 63 ]; then
+    echo "Oled täiskasvanu"
+elif [ "$vanus" -ge 63 ]; then
+    echo "Oled senjoor"
+else
+    echo "Vigane sisend"
+fi
