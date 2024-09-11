@@ -1,0 +1,23 @@
+#!/bin/bash
+#
+# annab aastaaja vastavalt kuule
+#
+echo -e "Sisesta kuu 1-12: \c"
+read kuu
+#
+if test $kuu -eq 1 -o $kuu -eq 2 -o $kuu -eq 12
+then
+	echo "Sellel kuul on talv"
+elif test $kuu -ge 3 -a $kuu -le 5
+then
+	echo "Sellel kuul on kevad"
+elif test $kuu -ge 6 -a $kuu -le 8
+then
+	echo "Sellel kuul on suvi"
+elif test $kuu -ge 9 -a $kuu -le 11
+then
+	echo "Sellel kuul on sygis"
+else
+	echo "Sellist kuud pole üheski aastaajas"
+fi
+#skriti lopp
