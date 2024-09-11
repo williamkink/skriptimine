@@ -1,0 +1,27 @@
+#!/bin/bash
+#
+echo -n "Sisesta kellaaeg (HH:MM): "
+read kellaaeg
+
+# kontroll
+if [[ ! "$kellaaeg" =~ ^[0-2][0-9]:[0-5][0-9]$ ]]; then
+    echo "Vigane sisend. Kasuta formaati HH:MM, kus HH on 00-23 ja MM on 00-59."
+    exit 1
+fi
+
+# kellaaja jagamine
+tund=$(echo "$kellaaeg" | cut -d: -f1)
+minut=$(echo "$kellaaeg" | cut -d: -f2)
+
+# Kontrollime kellaaega
+if [ "$tund" -ge 6 ] && [ "$tund" -lt 12 ]; then
+    echo "Tere hommikust"
+elif [ "$tund" -ge 12 ] && [ "$tund" -lt 18 ]; then
+    echo "Tere päevast"
+elif [ "$tund" -ge 18 ] && [ "$tund" -lt 22 ]; then
+    echo "Tere õhtust"
+elif [ "$tund" -ge 22 ] || [ "$tund" -lt 6 ]; then
+    echo "Head ööd!"
+else
+    echo "Vigane sisend. Sisesta kellaaeg vahemikus 00:00 kuni 23:59."
+fi
