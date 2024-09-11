@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Sisend andmed
+echo -n "Sisesta reisijate arv: "
+read reisijad
+
+echo -n "Sisesta kohtade arv bussis: "
+read kohad
+
+# Arvutused
+# Arvutame, mitu bussi on vaja
+bussid=$((reisijad / kohad))
+
+# Kontrollime, kas on ülejäänud reisijaid, kes ei mahu täisbussidesse
+ulejaanud=$((reisijad % kohad))
+
+# Kui on ülejäänud reisijaid, lisame ühe bussi juurde
+if [ $ulejaanud -gt 0 ]; then
+    bussid=$((bussid + 1))
+fi
+
+# Tulemuse väljamine
+echo "Kokku on vaja $bussid bussi"
