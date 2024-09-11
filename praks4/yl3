@@ -1,0 +1,22 @@
+#!/bin/bash
+#
+# Kontrollime, kas on argument antud; kui ei, siis küsime kasutajalt
+if [ -z "$1" ]; then
+    echo "1. Unix (Sun Os)"
+    echo "2. Linux (Red Hat)"
+    echo -n "Vali oma operatsioonisüsteem [1 või 2]: "
+    read osch
+else
+    osch=$1  # Määrame esimese käsurea argumendi muutujale osch
+fi
+
+if [ "$osch" -eq 1 ]; then
+    echo "Sa valisid Unix (Sun Os)"
+else
+    if [ "$osch" -eq 2 ]; then
+        echo "Sa valisid Linux (Red Hat)"
+    else
+        echo "Mis, sulle ei meeldi Unix/Linux OS."
+    fi
+fi
+#
