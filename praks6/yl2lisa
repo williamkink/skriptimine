@@ -1,0 +1,23 @@
+#!/bin/bash
+# Skript küsib kasutajalt sõiduki nime ja väljastab hinnateate vastavalt sõidukile
+
+echo -n "Please, give the vehicle name: "
+read rental
+
+case $rental in
+   "car") 
+       echo "For $rental, the cost is Rs.20 per km"
+       ;;
+   "van") 
+       echo "For $rental, the cost is Rs.10 per km"
+       ;;
+   "jeep") 
+       echo "For $rental, the cost is Rs.5 per km"
+       ;;
+   "bicycle") 
+       echo "For $rental, the cost is 20 paisa per km"
+       ;;
+   *) 
+       echo "Sorry, I cannot get a $rental for you"
+       ;;
+esac
