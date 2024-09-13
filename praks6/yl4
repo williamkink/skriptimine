@@ -1,0 +1,29 @@
+#!/bin/bash
+# kontrollib esimesed 20 kas on algarvud
+
+# kontrollib, kas antud arv on algarv
+function on_alg_arv() {
+    local arv=$1
+
+    # kas arv on väiksem kui 2
+    if [ "$arv" -lt 2 ]; then
+        echo "$arv - ei ole algarv"
+        return
+    fi
+
+    # märgib, kas arv on algarv
+    for (( jagaja=2; jagaja*jagaja<=arv; jagaja++ )); do
+        if (( arv % jagaja == 0 )); then
+            echo "$arv - ei ole algarv"
+            return
+        fi
+    done
+
+    # Kui ükski jagaja ei jaganud arvu, on see algarv
+    echo "$arv - on algarv"
+}
+
+# Kontrollime 20 esimest täisarvu
+for (( arv=1; arv<=20; arv++ )); do
+    on_alg_arv "$arv"
+done
