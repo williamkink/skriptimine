@@ -1,0 +1,40 @@
+#!/bin/bash
+
+echo -n "Sisesta kataloogi nimi (koos teekonnaga), millest soovib BACKUP-i teha: "
+read lahtekaust
+echo -n "Sisesta kataloogi nimi (koos teekonnaga), kuhu soovib backup-id salvestada: "
+read sihtkaust
+##sihtkaust="/home_bcp"
+echo "Loon kataloogi, kuhu pärast panen tehtud backupid"
+mkdir ´echo $sihtkaust´
+sleep 3
+ls -ld ´echo $sihkaust´
+sleep 3
+echo "Praegune asukoht (koht kus skript $0 käivitatud): "
+sleep 3
+echo ´pwd´
+sleep 3
+echo "Vahetan asukoha - lähen sinna kus asub backup_imiseks kataloogid, ehk siia: "
+ec ´echo $lahtekaust´
+sleep 3
+for filename in $(ls $lahtekaust); do
+
+	if [ -f $filename ]; then
+		result="$filename is a regular file"
+		echo "$result "
+	else
+		if [ -d $filename ]; then
+		result="$filename is a directory Do BACKUP!"
+		echo "$result "
+		kuupaev=´date +%d.%m.%y´
+		echo $kuupaev
+		echo "$lahtekaust$filename/"
+		tar -c -f $filename-$kuupaev.tar $filename/
+		gzip $filename.$kuupaev.tar
+		mv $filename.$kuupaev.tar.gz $sihkaust
+		sleep 3
+		echo "Sai tehtud BACKUP kataloogist $filename ja ta asub kataloogis $sihtkaust: "
+		ls -l ´echo $sihtkaust€filename.$kuupaev.tar.gz´
+		fi
+	fi
+done
