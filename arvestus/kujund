@@ -1,0 +1,11 @@
+#!/bin/bash
+read -p "Sisesta ridade arv: " read_ridade_arv
+for (( i = read_ridade_arv; i >= 1; i-- ))
+do
+	echo -n "$i. " 
+	for (( j = 1; j <= i; j++ ))
+	do
+		echo -n "* "
+	done
+	echo ""
+done
