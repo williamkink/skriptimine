@@ -1,0 +1,13 @@
+#!/bin/bash
+# Skript mis väljastab kuupäeva, kellaaja koos tervitusega
+
+# Teretab kasutajat
+kasutaja=$USER
+
+# Skript vaatab systeemi kuupäeva ja kella
+kuupaev=$(date +"%Y-%m-%d")
+kellaaeg=$(date +"%H:%M")
+
+# Väljastab tervituse koos kuupäeva ja kellaajaga
+echo "Tere, $kasutaja! Täna on $kuupaev $kellaaeg."
+
