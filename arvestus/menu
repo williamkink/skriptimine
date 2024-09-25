@@ -1,0 +1,23 @@
+#!/bin/bash
+#
+# Kontrollime, kas on argument antud; kui ei, siis küsime kasutajalt
+if [ -z "$1" ]; then
+    echo "1. liha ja kartulid"
+    echo "2. kala ja krõpsud"
+    echo "3. supp ja salat"
+    echo -n "Tee oma valik, mida süüa tahad [1 või 2 või 3]: "
+    read osch
+else
+    osch=$1  # Määrame esimese käsurea argumendi muutujale osch
+fi
+
+if [ "$osch" -eq 1 ]; then
+    echo "Väga maitsev, aga jälgi oma tervist! Head isu!"
+elif [ "$osch" -eq 2 ]; then
+    echo "Brititoit on maitsev! Head isu!"
+elif [ "$osch" -eq 3 ]; then
+    echo "Nii tervislik ja igav valik. Head isu!"
+else
+    echo "Mis sulle meie menus ei meeldi? Või pole kõht tühi? "
+fi
+
