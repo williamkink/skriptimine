@@ -1,0 +1,8 @@
+#!/bin/bash
+
+cut -f2 -d" " inimesed.txt | cut -f1 -d";" | tr '[:upper:]' '[:lower:]' > eesnimed.txt
+cut -f1 -d":" inimesed.txt | cut -f1 -d"," | tr '[:upper:]' '[:lower:]' > perenimed.txt
+cut -f2 -d"-" inimesed.txt > domeenid.txt
+
+paste -d"." eesnimed_vaiksed.txt perenimed_vaiksed.txt | paste -d"@" - domeenid.txt > meilid.txt
+paste -d"." eesnimed_vaiksed.txt perenimed_vaiksed.txt > kasutajad.txt
