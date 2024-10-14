@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Kontrollime, kas lähtekaust on sisestatud argumendina
+if [ -z "$1" ]; then
+    echo "Palun sisesta lähtekaust (täistee)."
+    exit 1
+fi
+
+# Määrame lähtekausta ja sihtkausta
+lahtekaust=$1
+sihtkaust="/home_bcp"
+
+# Kontrollime, kas sihtkaust eksisteerib, kui ei, siis loome selle
+if [ ! -d "$sihtkaust" ]; then
+    echo "Loon sihtkausta: $sihtkaust"
+    mkdir -p "$sihtkaust"
+fi
+
+# Läbime kõik failid ja kataloogid lähtekaustas
+for filename in $(ls "$lahtekaust"); do
+    fullpath="$lahtekaust/$filename"
+    
+    # Kontrollime, kas tegemist on tavalise failiga
+    if [ -f "$fullpath" ]; then
+        echo "$filename on tavaline fail, varundamine pole vajalik."
+    
+    # Kui tegemist on kataloogiga, teeme varundamise
+    elif [ -d "$fullpath" ]; then
+        echo "$filename on kataloog, alustame varundamist."
+
+        # Määrame kuupäeva varundamise nime jaoks
+        kuupaev=$(date +%d.%m.%Y)
+
+        # Arhiveerime ja pakime kataloogi
+        tar -cf "$filename.$kuupaev.tar" -C "$lahtekaust" "$filename"
+        gzip "$filename.$kuupaev.tar"
+        
+        # Liigutame pakitud faili sihtkausta
+        mv "$filename.$kuupaev.tar.gz" "$sihtkaust"
+        
+        echo "Varundatud $filename ja salvestatud $sihtkausta."
+    fi
+done
+
+echo "Kõik kataloogid on varundatud."
