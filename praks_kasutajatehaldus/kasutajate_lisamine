@@ -1,0 +1,66 @@
+#!/bin/bash
+
+# Skript: Kasutajate loomise süsteem
+# Eesmärk: Lisada uusi kasutajaid kooli süsteemi õpilaste ja õpetajate gruppi
+
+# Kontrollime, kas skripti käivitab root kasutaja
+if [[ $EUID -ne 0 ]]; then
+  echo "Skript peab olema käivitatud root kasutaja õigustega!"
+  exit 1
+fi
+
+while true; do
+    # Küsime kasutajanime
+    read -p "Sisesta kasutajanimi (või vajuta 'x' lõpetamiseks): " kasutajanimi
+
+    # Kontrollime, kas kasutaja tahab skripti lõpetada
+    if [[ "$kasutajanimi" == "x" ]]; then
+        echo "Skript lõpetab töö..."
+        exit 0
+    fi
+
+    # Kontrollime, kas kasutajanimi on Linuxile sobilik
+    if ! [[ "$kasutajanimi" =~ ^[a-z][-a-z0-9_]*$ ]]; then
+        echo "Viga: Ebakorrektne kasutajanimi. Kasutajanimi peab algama väikese tähega ja sisaldama ainult tähti, numbreid või allkriipsu."
+        continue
+    fi
+
+    # Küsime grupi nime
+    read -p "Sisesta grupi nimi (opilased või opetajad): " grupp
+
+    # Kontrollime, kas sisestatud grupp on korrektne
+    if [[ "$grupp" != "opilased" && "$grupp" != "opetajad" ]]; then
+        echo "Viga: Grupinimi peab olema kas 'opilased' või 'opetajad'."
+        continue
+    fi
+
+    # Kontrollime, kas kasutaja juba eksisteerib
+    if id "$kasutajanimi" &>/dev/null; then
+        echo "Viga: Kasutaja '$kasutajanimi' juba eksisteerib!"
+        continue
+    fi
+
+    # Loome kasutaja ja määrame kodukataloogi
+    useradd -m -d /home/"$kasutajanimi" -s /bin/bash "$kasutajanimi"
+
+    # Määrame kasutajale grupi (peamine grupp kasutajale)
+    usermod -g "$grupp" "$kasutajanimi"
+
+    # Määrame kodukataloogi õigused, omanikuks kasutaja ja grupiks määratud grupp
+    chown "$kasutajanimi":"$grupp" /home/"$kasutajanimi"
+    chmod 750 /home/"$kasutajanimi"
+
+    # Määrame kasutajale parooli
+    echo "Määrame kasutajale parooli:"
+    passwd "$kasutajanimi"
+
+    # Väljasta kasutaja info
+    echo -e "\nKasutaja '$kasutajanimi' on edukalt loodud."
+    echo "Kasutaja info:"
+    echo "Nimi: $kasutajanimi"
+    echo "Grupp: $grupp"
+    echo "Kodukataloog: /home/$kasutajanimi"
+    echo "Koorik: /bin/bash"
+
+    echo -e "\n------------------------\n"
+done
